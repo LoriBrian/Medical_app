@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Health Monitoring Dashboard</title>
+    <meta http-equiv="refresh" content="5">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 { color: #2c3e50; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .metric {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .status {
+            font-size: 18px;
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .normal {
+            background: #d4edda;
+            color: #155724;
+        }
+        .anomaly {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Health Monitoring Dashboard</h1>
+
+ <div class="card">
+    <div class="metric">❤️ Heart Rate: {{ data['heart_rate'] }} bpm</div>
+    <div class="metric">🩸 Blood Oxygen: {{ data['blood_oxygen'] }} %</div>
+    <div class="metric">🏃 Activity Level: {{ data['activity_level'] }}</div>
+
+    <div style="margin-top:12px;">
+        <strong>Model status:</strong>
+        <span class="{% if model_status == 'Anomaly' %}anomaly{% else %}normal{% endif %}">
+            {{ model_status }}
+        </span>
+        {% if model_score is not none %}
+            <br><small>anomaly score: {{ '%.3f'|format(model_score) }}</small>
+        {% endif %}
+    </div>
+
+    <div style="margin-top:12px; font-weight:bold;">
+        Recommendation: <div style="margin-top:6px;">{{ recommendation }}</div>
+    </div>
+</div>
+</body>
+</html>
